@@ -1,0 +1,20 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "song api for playmusic",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7"
+  }
+}
