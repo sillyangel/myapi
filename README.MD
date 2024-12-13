@@ -46,3 +46,5 @@
 - `message` (string): Confirmation message.
 
 **Example:** ``GET /api/db/clear?key= ``
+
+# Referral Codes

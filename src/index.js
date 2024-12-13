@@ -38,7 +38,6 @@ app.get('/api/referral-codes', (req, res) => {
         data: referralCodes
     });
 });
-
 app.get('/api/referral-codes/add', (req, res) => {
     const { code, userID } = req.query;
 
@@ -80,7 +79,6 @@ app.get('/api/referral-codes/add', (req, res) => {
         }
     });
 });
-
 app.get('/api/referral-codes/use', (req, res) => {
     const { code, email } = req.query;
 
@@ -123,9 +121,41 @@ app.get('/api/referral-codes/use', (req, res) => {
         }
     });
 });
-
-// generate referral code 
 app.get('/api/referral-codes/generate', (req, res) => {
+    const { userID, num } = req.query;
+
+    if (!userID) {
+        return res.status(400).json({
+            error: 'Missing required query parameter: userID.'
+        });
+    }
+    // if num is not return and dont generate more than 5
+    if (!num || num > 5) {
+        return res.status(400).json({
+            error: 'Invalid number of referral codes to generate.'
+        });
+    }
+    const db = readReferralDatabase();
+    const { referralCodes } = db;
+    const createdcodes = [];
+
+    for (let i = 0; i < num; i++) {
+        const code = Math.random().toString(36).substring(2, 8).toUpperCase();
+        referralCodes[code] = {
+            author: userID,
+            usedBy: [],
+            used: false
+        };
+        writeReferralDatabase(db);
+        // save in a var
+        createdcodes.push(code);
+    }
+    res.json({
+        message: 'Referral codes generated successfully.',
+        data: createdcodes
+    })
+});
+app.get('/api/referral-codes/get', (req, res) => {
     const { userID } = req.query;
 
     if (!userID) {
@@ -133,19 +163,18 @@ app.get('/api/referral-codes/generate', (req, res) => {
             error: 'Missing required query parameter: userID.'
         });
     }
-
     const db = readReferralDatabase();
     const { referralCodes } = db;
 
-    const code = Math.random().toString(36).substring(2, 8).toUpperCase();
-    referralCodes[code] = {
-        author: userID,
-        usedBy: [],
-        used: false
-    }
-    writeReferralDatabase(db);
-});
+    const codes = Object.entries(referralCodes)
+        .filter(([code, { author }]) => author === userID)
+        .map(([code, { usedBy, used }]) => ({ code, usedBy, used }));
 
+    res.json({
+        message: 'Referral codes retrieved successfully.',
+        data: codes
+    });
+});
 
 
 
@@ -231,6 +260,7 @@ app.get('/', (req, res) => {
             <body>
                 <h1>Song Dashboard - API</h1>
                 <a href="/docs" style="">Documentation</a>
+                <a href="https://offbrand.sillyangel.xyz" style="margin-left: 20px;">music app</a>
                 <h2>Top 5 Most Played Albums</h2>
                 <ul>
                     ${topAlbums.map(album => `<li>${album.album}: ${album.count} plays</li>`).join('')}
