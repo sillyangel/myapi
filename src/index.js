@@ -319,29 +319,109 @@ app.get('/docs', (req, res) => {
             <body>
                 <h1>API Documentation</h1>
                 <a href="/" style="">Dashboard</a>
-                <h2>GET /api/song</h2>
-                <p>Endpoint to log a song play. Requires query parameters:</p>
-                <ul>
-                    <li><strong>song</strong>: The name of the song</li>
-                    <li><strong>artists</strong>: The name of the artists</li>
-                    <li><strong>album</strong>: The name of the album</li>
-                    <li><strong>userID</strong>: The ID of the user (optional)</li>
-                </ul>
-                <b>Response:</b>
-                <ul>
-                    <li><strong>message</strong> (string): Confirmation message.</li>
-                    <li><strong>data</strong> (object): Details of the song added.</li>
-                </ul>
-                <h2>GET /api/user-songs</h2>
-                <p>Endpoint to retrieve songs played by a specific user. Requires query parameters:</p>
-                <ul>
-                    <li><strong>userID</strong>: The ID of the user</li>
-                </ul>
-                <b>Response:</b>
-                <ul>
-                    <li><strong>message</strong> (string): Confirmation message.</li>
-                    <li><strong>data</strong> (array): List of the song played by the user.</li>
-                </ul>
+                <div>
+                    <h2>GET /api/song</h2>
+                    <p>Endpoint to log a song play. Requires query parameters:</p>
+                    <ul>
+                        <li><strong>song</strong>: The name of the song</li>
+                        <li><strong>artists</strong>: The name of the artists</li>
+                        <li><strong>album</strong>: The name of the album</li>
+                        <li><strong>userID</strong>: The ID of the user (optional)</li>
+                    </ul>
+                    <b>Response:</b>
+                    <ul>
+                        <li><strong>message</strong> (string): Confirmation message.</li>
+                        <li><strong>data</strong> (object): Details of the song added.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h2>GET /api/user-songs</h2>
+                    <p>Endpoint to retrieve songs played by a specific user. Requires query parameters:</p>
+                    <ul>
+                        <li><strong>userID</strong>: The ID of the user</li>
+                    </ul>
+                    <b>Response:</b>
+                    <ul>
+                        <li><strong>message</strong> (string): Confirmation message.</li>
+                        <li><strong>data</strong> (array): List of the song played by the user.</li>
+                    </ul>
+                </div>
+                 <div>
+                    <h2>GET /api/db/clear </h2>
+                    <p>Endpoint to clear db by the owner or admin. Requires query parameters:</p>
+                    <ul>
+                        <li><strong>key</strong>: Set Key to clear the </li>
+                    </ul>
+                    <b>Response:</b>
+                    <ul>
+                        <li><strong>message</strong> (string): Confirmation message.</li>
+                    </ul>
+                </div>
+                <h1>Referral Codes</h1>
+                <div>
+    <h2>GET /api/referral-codes</h2>
+    <p>Endpoint to retrieve all referral codes.</p>
+    <b>Response:</b>
+    <ul>
+        <li><strong>message</strong> (string): Confirmation message.</li>
+        <li><strong>data</strong> (array): List of referral codes.</li>
+    </ul>
+</div>
+
+<div>
+    <h2>GET /api/referral-codes/add</h2>
+    <p>Endpoint to add a new referral code. Requires query parameters:</p>
+    <ul>
+        <li><strong>code</strong> (string): The referral code to add.</li>
+        <li><strong>userID</strong> (string): The ID of the user adding the referral code.</li>
+    </ul>
+    <b>Response:</b>
+    <ul>
+        <li><strong>message</strong> (string): Confirmation message.</li>
+        <li><strong>data</strong> (object): Details of the added referral code.</li>
+    </ul>
+</div>
+
+<div>
+    <h2>GET /api/referral-codes/use</h2>
+    <p>Endpoint to use a referral code. Requires query parameters:</p>
+    <ul>
+        <li><strong>code</strong> (string): The referral code to use.</li>
+        <li><strong>email</strong> (string): The email of the user using the referral code.</li>
+    </ul>
+    <b>Response:</b>
+    <ul>
+        <li><strong>message</strong> (string): Confirmation message.</li>
+        <li><strong>data</strong> (object): Details of the used referral code.</li>
+    </ul>
+</div>
+
+<div>
+    <h2>GET /api/referral-codes/generate</h2>
+    <p>Endpoint to generate new referral codes. Requires query parameters:</p>
+    <ul>
+        <li><strong>userID</strong> (string): The ID of the user generating the referral codes.</li>
+        <li><strong>num</strong> (number): The number of referral codes to generate (maximum 5).</li>
+    </ul>
+    <b>Response:</b>
+    <ul>
+        <li><strong>message</strong> (string): Confirmation message.</li>
+        <li><strong>data</strong> (array): List of generated referral codes.</li>
+    </ul>
+</div>
+
+<div>
+    <h2>GET /api/referral-codes/get</h2>
+    <p>Endpoint to retrieve referral codes by user ID. Requires query parameters:</p>
+    <ul>
+        <li><strong>userID</strong> (string): The ID of the user whose referral codes are to be retrieved.</li>
+    </ul>
+    <b>Response:</b>
+    <ul>
+        <li><strong>message</strong> (string): Confirmation message.</li>
+        <li><strong>data</strong> (array): List of referral codes created by the user.</li>
+    </ul>
+</div>
             </body>
         </html>
         `)
